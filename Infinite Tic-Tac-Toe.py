@@ -135,7 +135,7 @@ def b_click(b):
         reset_timer()
         highlight_opponent_winning_move()
     else:
-        messagebox.showerror("Tic Tac Toe", "Naagaw na yan, wag kana jan")
+        messagebox.showerror("Tic Tac Toe", "The spot already taken, try harder")
 
 
 # Timer
