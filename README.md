@@ -14,7 +14,7 @@ Welcome to the Infinite Tic-Tac-Toe game! This is a Python-based game using the 
 
   2. Run the Game: Open a terminal or command prompt and navigate to the directory where you saved the file. Run the following command:
    
-   python Infinite Tic-Tac-Toe.py
+   `python Infinite Tic-Tac-Toe.py`
 
 3. Gameplay
 
