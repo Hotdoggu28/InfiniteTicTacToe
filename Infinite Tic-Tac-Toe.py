@@ -135,7 +135,7 @@ def b_click(b):
         reset_timer()
         highlight_opponent_winning_move()
     else:
-        messagebox.showerror("Tic Tac Toe", "The spot already taken, try harder")
+        messagebox.showerror("Tic Tac Toe", "The spot already taken, try harder?")
 
 
 # Timer
@@ -185,23 +185,23 @@ board_frame.grid(row=1, column=0, columnspan=3, padx=20, pady=10)
 
 # Buttons
 buttons = []
-b1 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b1 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b1))
-b2 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b2 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b2))
-b3 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b3 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b3))
-b4 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b4 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b4))
-b5 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b5 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b5))
-b6 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b6 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b6))
-b7 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b7 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b7))
-b8 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b8 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b8))
-b9 = Button(board_frame, text=" ", font=("Helvetica", 20), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
+b9 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#D3D3D3", fg="#1C1C1C",
             command=lambda: b_click(b9))
 
 # Add buttons to the list for easier management
@@ -218,8 +218,19 @@ b7.grid(row=2, column=0)
 b8.grid(row=2, column=1)
 b9.grid(row=2, column=2)
 
+
+# Reset game menu
+menu=Menu(root)
+root.config(menu=menu)
+
+options_menu = Menu(menu, tearoff= False)
+menu.add_cascade(label="Options",menu=options_menu)
+options_menu.add_command(label="Reset Game", command = reset)
+
+
+
 # Timer label
-timer_label = Label(root, text="Time left: 10s", font=("Helvetica", 14), bg="#1C1C1C", fg="white")
+timer_label = Label(root, text="Time left: 5s", font=("Helvetica", 14), bg="#1C1C1C", fg="white")
 timer_label.grid(row=2, column=0, columnspan=3, pady=(0, 10))
 
 # Game title label
