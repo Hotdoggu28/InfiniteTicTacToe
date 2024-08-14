@@ -22,3 +22,6 @@ Welcome to the Infinite Tic-Tac-Toe game! This is a Python-based game using the 
 - Making a Move: Click on an empty cell to place your piece (X or O). Each player can only place up to 3 pieces on the board. New moves will replace the oldest moves.
 - Winning: The game checks for a win condition after each move. If a player achieves a three-in-a-row horizontally, vertically, or diagonally, they win.
 - Timer: Each player has 5 seconds per turn. If time runs out, the game automatically switches turns and shows a notification.
+
+**4. Special Infinite Tic-Tac-Toe**
+- **Maybe something will happen if you try hard to click the same button more than 3 times?? who knows :))**
