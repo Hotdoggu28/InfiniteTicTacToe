@@ -31,6 +31,7 @@ def reset():
         button.config(text=" ", state=NORMAL, bg="#D3D3D3", fg="#1C1C1C")
 
     timer_label.config(text="Time left: 5s")
+    turn_label.config(text="Turn: X")
     start_timer()
 
 
@@ -130,6 +131,7 @@ def b_click(b):
             remove_oldest_move(o_moves)
 
         clicked = not clicked
+        turn_label.config(text=f"Turn: {'X' if clicked else 'O'}")  # Update turn label
         count += 1
         check_winner()
         reset_timer()
@@ -174,6 +176,7 @@ def stop_timer():
 def switch_turn():
     global clicked
     clicked = not clicked
+    turn_label.config(text=f"Turn: {'X' if clicked else 'O'}")  # Update turn label
     reset_timer()
     highlight_opponent_winning_move()
 
@@ -228,10 +231,13 @@ menu.add_cascade(label="Options",menu=options_menu)
 options_menu.add_command(label="Reset Game", command = reset)
 
 
-
 # Timer label
 timer_label = Label(root, text="Time left: 5s", font=("Helvetica", 14), bg="#1C1C1C", fg="white")
-timer_label.grid(row=2, column=0, columnspan=3, pady=(0, 10))
+timer_label.grid(row=3, column=1, pady=(10, 10), sticky=E)
+
+# Turn label
+turn_label = Label(root, text="Turn: X", font=("Helvetica", 14), bg="#1C1C1C", fg="white")
+turn_label.grid(row=3, column=1, pady=(10, 10), sticky=W)
 
 # Game title label
 title_label = Label(root, text="Infinite Tic-Tac-Toe", font=("Helvetica", 24), bg="#1C1C1C", fg="white")
