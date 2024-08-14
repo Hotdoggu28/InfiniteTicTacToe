@@ -17,14 +17,24 @@ o_moves = []
 timer = 5
 timer_id = None
 
+# Track twist usage for each player
+x_twist_used = False
+o_twist_used = False
+
+# Initialize button click counts
+button_clicks = {}
 
 # Reset the game
 def reset():
     global x_moves, o_moves, clicked, count, timer
+    global x_twist_used, o_twist_used
+
     clicked = True
     count = 0
     x_moves = []
     o_moves = []
+    x_twist_used = False
+    o_twist_used = False
 
     # Reset buttons
     for button in buttons:
@@ -33,12 +43,10 @@ def reset():
     timer_label.config(text="Time left: 5s")
     start_timer()
 
-
 # Disable buttons
 def disable_all_buttons():
     for button in buttons:
         button.config(state=DISABLED)
-
 
 # Function to check winner
 def check_winner():
@@ -73,13 +81,11 @@ def check_winner():
         else:
             root.quit()
 
-
 # Remove the oldest move from the board
 def remove_oldest_move(moves):
     if len(moves) > 3:
         oldest_move = moves.pop(0)
         oldest_move.config(text=" ", bg="#D3D3D3")
-
 
 # Highlight opponent's potential winning moves
 def highlight_opponent_winning_move():
@@ -105,17 +111,20 @@ def highlight_opponent_winning_move():
     check_potential_win(b1, b5, b9)
     check_potential_win(b3, b5, b7)
 
-
 # Clear all highlights
 def clear_highlights():
     for button in buttons:
         if button["bg"] == "#FFD700":
             button.config(bg="#D3D3D3")
 
-
-# Button click function
+# Button click function with twist
 def b_click(b):
     global clicked, count, x_moves, o_moves
+    global x_twist_used, o_twist_used
+
+    # Initialize click count for the button if it doesn't exist
+    if b not in button_clicks:
+        button_clicks[b] = 0
 
     if b["text"] == " ":
         if clicked:
@@ -131,12 +140,35 @@ def b_click(b):
 
         clicked = not clicked
         count += 1
+        button_clicks[b] = 1  # Reset the click count for the button
         check_winner()
         reset_timer()
         highlight_opponent_winning_move()
     else:
-        messagebox.showerror("Tic Tac Toe", "The spot already taken, try harder?")
+        # Increment click count for the button
+        button_clicks[b] += 1
 
+        if button_clicks[b] == 4:
+            # Switch the text after 3 clicks
+            if b["text"] == "X" and not x_twist_used:
+                b["text"] = "O"
+                b.config(fg="#1E90FF")  # Blue for O
+                x_moves.remove(b)
+                o_moves.append(b)
+                x_twist_used = True
+            elif b["text"] == "O" and not o_twist_used:
+                b["text"] = "X"
+                b.config(fg="#FF4500")  # Orange for X
+                o_moves.remove(b)
+                x_moves.append(b)
+                o_twist_used = True
+
+            clicked = not clicked  # Switch turn
+            check_winner()
+            reset_timer()
+            highlight_opponent_winning_move()
+        else:
+            messagebox.showerror("Tic Tac Toe", "The spot is already taken, try harder?")
 
 # Timer
 def countdown():
@@ -151,7 +183,6 @@ def countdown():
         messagebox.showinfo("Time's up!", "Time's up! Switching turns.")
         switch_turn()
 
-
 def start_timer():
     global timer, timer_id
     stop_timer()
@@ -159,10 +190,8 @@ def start_timer():
     timer_label.config(text=f"Time left: {timer}s")
     timer_id = root.after(1000, countdown)
 
-
 def reset_timer():
     start_timer()
-
 
 def stop_timer():
     global timer_id
@@ -170,13 +199,11 @@ def stop_timer():
         root.after_cancel(timer_id)
         timer_id = None
 
-
 def switch_turn():
     global clicked
     clicked = not clicked
     reset_timer()
     highlight_opponent_winning_move()
-
 
 # Board design
 # Create a frame for the game board
@@ -218,16 +245,13 @@ b7.grid(row=2, column=0)
 b8.grid(row=2, column=1)
 b9.grid(row=2, column=2)
 
-
 # Reset game menu
-menu=Menu(root)
+menu = Menu(root)
 root.config(menu=menu)
 
-options_menu = Menu(menu, tearoff= False)
-menu.add_cascade(label="Options",menu=options_menu)
-options_menu.add_command(label="Reset Game", command = reset)
-
-
+options_menu = Menu(menu, tearoff=False)
+menu.add_cascade(label="Options", menu=options_menu)
+options_menu.add_command(label="Reset Game", command=reset)
 
 # Timer label
 timer_label = Label(root, text="Time left: 5s", font=("Helvetica", 14), bg="#1C1C1C", fg="white")
