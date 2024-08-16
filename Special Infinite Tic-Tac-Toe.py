@@ -3,11 +3,11 @@ from tkinter import messagebox
 
 root = Tk()
 root.title('Infinite Tic-Tac-Toe')
-root.configure(bg="#2C2F33")  # Updated background color
+root.configure(bg="#2C2F33")  # background color
 
 # Fixed size
 root.resizable(False, False)
-root.geometry("400x600")  # Increased window size for better layout
+root.geometry("400x600")  #  window size
 
 # Track the board state
 clicked = True
@@ -141,7 +141,7 @@ def b_click(b):
             remove_oldest_move(x_moves)
         else:
             b["text"] = "O"
-            b.config(fg="#39FF14")  # Blue for O
+            b.config(fg="#39FF14")  # Green for O
             o_moves.append(b)
             remove_oldest_move(o_moves)
 
@@ -159,7 +159,7 @@ def b_click(b):
             # Switch the text after 3 clicks
             if b["text"] == "X" and not x_twist_used:
                 b["text"] = "O"
-                b.config(fg="#39FF14")  # Blue for O
+                b.config(fg="#39FF14")  # Green for O
                 x_moves.remove(b)
                 o_moves.append(b)
                 x_twist_used = True
@@ -222,7 +222,7 @@ def switch_turn():
 
 # Board design
 # Create a frame for the game board
-board_frame = Frame(root, bg="#99AAB5", bd=10)  # Updated color scheme
+board_frame = Frame(root, bg="#99AAB5", bd=10)  # Grayish blue
 board_frame.grid(row=1, column=0, columnspan=3, padx=20, pady=20)
 
 # Buttons
