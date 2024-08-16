@@ -3,11 +3,11 @@ from tkinter import messagebox
 
 root = Tk()
 root.title('Infinite Tic-Tac-Toe')
-root.configure(bg="#2C2F33")  # background color
+root.configure(bg="#2C2F33")  # Background color
 
 # Fixed size
 root.resizable(False, False)
-root.geometry("400x600")  # window size
+root.geometry("400x650")  # Window size
 
 # Track the board state
 clicked = True
@@ -16,7 +16,6 @@ x_moves = []
 o_moves = []
 timer = 5
 timer_id = None
-
 
 # Reset the game
 def reset():
@@ -28,18 +27,16 @@ def reset():
 
     # Reset buttons
     for button in buttons:
-        button.config(text=" ", state=NORMAL, bg="#7289DA", fg="#23272A")
+        button.config(text=" ", state=NORMAL, bg="#b2eee6", fg="#23272A")
 
     timer_label.config(text="Time left: 5s")
     turn_label.config(text="Turn: X")
     start_timer()
 
-
 # Disable buttons
 def disable_all_buttons():
     for button in buttons:
         button.config(state=DISABLED)
-
 
 # Function to check winner
 def check_winner():
@@ -49,9 +46,9 @@ def check_winner():
     # Check all possible win conditions
     def check_condition(a, b, c):
         if a["text"] == b["text"] == c["text"] and a["text"] != " ":
-            a.config(bg="#FFFF00")
-            b.config(bg="#FFFF00")
-            c.config(bg="#FFFF00")
+            a.config(bg="#f97171")  # Winner Color
+            b.config(bg="#f97171")
+            c.config(bg="#f97171")
             return True
         return False
 
@@ -74,13 +71,11 @@ def check_winner():
         else:
             root.quit()
 
-
 # Remove the oldest move from the board
 def remove_oldest_move(moves):
     if len(moves) > 3:
         oldest_move = moves.pop(0)
-        oldest_move.config(text=" ", bg="#7289DA")
-
+        oldest_move.config(text=" ", bg="#b2eee6")
 
 # Highlight opponent's potential winning moves
 def highlight_opponent_winning_move():
@@ -90,13 +85,13 @@ def highlight_opponent_winning_move():
     # Check each button to see if it could lead to a win for the opponent
     def check_potential_win(a, b, c):
         if a["text"] == " " and b["text"] == opponent and c["text"] == opponent:
-            a.config(bg="#FFD700")
+            a.config(bg="#8ad6cc")  # Highlight possible winning move color
         elif a["text"] == opponent and b["text"] == " " and c["text"] == opponent:
-            b.config(bg="#FFD700")
+            b.config(bg="#8ad6cc")
         elif a["text"] == opponent and b["text"] == opponent and c["text"] == " ":
-            c.config(bg="#FFD700")
+            c.config(bg="#8ad6cc")
 
-    # Check all possible win conditions for opponent's potential winning moves
+    # Check all possible win conditions for opponent
     check_potential_win(b1, b2, b3)
     check_potential_win(b4, b5, b6)
     check_potential_win(b7, b8, b9)
@@ -106,13 +101,11 @@ def highlight_opponent_winning_move():
     check_potential_win(b1, b5, b9)
     check_potential_win(b3, b5, b7)
 
-
 # Clear all highlights
 def clear_highlights():
     for button in buttons:
-        if button["bg"] == "#FFD700":
-            button.config(bg="#7289DA")
-
+        if button["bg"] == "#8ad6cc":  # Highlight possible winning move color
+            button.config(bg="#b2eee6")  # Background of buttons color
 
 # Button click function
 def b_click(b):
@@ -121,12 +114,12 @@ def b_click(b):
     if b["text"] == " ":
         if clicked:
             b["text"] = "X"
-            b.config(fg="#FF4500")  # Orange for X
+            b.config(fg="#385a7c")  # X Color
             x_moves.append(b)
             remove_oldest_move(x_moves)
         else:
             b["text"] = "O"
-            b.config(fg="#39FF14")  # Green for O
+            b.config(fg="#7C5A38")  # O Color
             o_moves.append(b)
             remove_oldest_move(o_moves)
 
@@ -138,7 +131,6 @@ def b_click(b):
         highlight_opponent_winning_move()
     else:
         messagebox.showerror("Tic Tac Toe", "The spot already taken, try harder?")
-
 
 # Timer
 def countdown():
@@ -153,7 +145,6 @@ def countdown():
         messagebox.showinfo("Time's up!", "Time's up! Switching turns.")
         switch_turn()
 
-
 def start_timer():
     global timer, timer_id
     stop_timer()
@@ -161,17 +152,14 @@ def start_timer():
     timer_label.config(text=f"Time left: {timer}s")
     timer_id = root.after(1000, countdown)
 
-
 def reset_timer():
     start_timer()
-
 
 def stop_timer():
     global timer_id
     if timer_id:
         root.after_cancel(timer_id)
         timer_id = None
-
 
 def switch_turn():
     global clicked
@@ -180,7 +168,6 @@ def switch_turn():
     reset_timer()
     highlight_opponent_winning_move()
 
-
 # Board design
 # Create a frame for the game board
 board_frame = Frame(root, bg="#99AAB5", bd=10)  # Grayish blue
@@ -188,23 +175,23 @@ board_frame.grid(row=1, column=0, columnspan=3, padx=20, pady=20)
 
 # Buttons
 buttons = []
-b1 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b1 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b1))
-b2 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b2 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b2))
-b3 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b3 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b3))
-b4 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b4 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b4))
-b5 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b5 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b5))
-b6 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b6 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b6))
-b7 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b7 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b7))
-b8 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b8 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b8))
-b9 = Button(board_frame, text=" ", font=("Helvetica", 20, "bold"), height=3, width=6, bg="#7289DA", fg="#23272A",
+b9 = Button(board_frame, text=" ", font=("Comic Sans MS", 20, "bold"), height=3, width=6, bg="#b2eee6", fg="#23272A",
             command=lambda: b_click(b9))
 
 # Add buttons to the list for easier management
@@ -229,17 +216,16 @@ options_menu = Menu(menu, tearoff=False)
 menu.add_cascade(label="Options", menu=options_menu)
 options_menu.add_command(label="Reset Game", command=reset)
 
-
 # Timer label
-timer_label = Label(root, text="Time left: 5s", font=("Helvetica", 16), bg="#2C2F33", fg="white")
+timer_label = Label(root, text="Time left: 5s", font=("Comic Sans MS", 16), bg="#2C2F33", fg="white")
 timer_label.grid(row=3, column=1, pady=(10, 10), sticky=E)
 
 # Turn label
-turn_label = Label(root, text="Turn: X", font=("Helvetica", 16), bg="#2C2F33", fg="white")
+turn_label = Label(root, text="Turn: X", font=("Comic Sans MS", 16), bg="#2C2F33", fg="white")
 turn_label.grid(row=3, column=1, pady=(10, 10), sticky=W)
 
 # Game title label
-title_label = Label(root, text="Infinite Tic-Tac-Toe", font=("Helvetica", 28), bg="#2C2F33", fg="white")
+title_label = Label(root, text="Infinite Tic-Tac-Toe", font=("Comic Sans MS", 28), bg="#2C2F33", fg="white")
 title_label.grid(row=0, column=0, columnspan=3, pady=20)
 
 # Start the timer
