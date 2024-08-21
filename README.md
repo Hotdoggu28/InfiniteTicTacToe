@@ -27,8 +27,3 @@ Welcome to the Infinite Tic-Tac-Toe game! This is a Python-based game using the 
 - **Maybe something will happen if you try hard to click the same button more than 3 times?? who knows :))**
 
 
-
-References
-
-    https://www.youtube.com/watch?v=xx0qmpuA-vM
-    https://youtube.com/shorts/H6KqLlEQ0G4?si=WOj2vaetl0OG-lqM
